@@ -1,0 +1,34 @@
+version: '3.8'
+
+x-env: &env
+  environment:
+    MYSQL_ROOT_PASSWORD: examplepassword
+    MYSQL_DATABASE: yourdatabase
+    MYSQL_USER: youruser
+    MYSQL_PASSWORD: yourpassword
+
+services:
+  mariadb:
+    <<: *env
+    image: mariadb:10.4.25
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  # mariadb-maxscale:
+  #   build: ./maxscale
+  #   ports:
+  #     - "3306:3306"
+  #     - "8989:8989"
+  #   depends_on:
+  #     - mariadb
+  #   volumes:
+  #     - maxscale-data:/var/lib/maxscale
+    
+volumes:
+  mariadb-data:
+  # grafana-data:
+  # prometheus-data:
+  # maxscale-data:
